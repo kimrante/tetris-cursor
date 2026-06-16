@@ -1,3 +1,8 @@
+:root {
+  --board-cols: 10;
+  --board-rows: 20;
+}
+
 *,
 *::before,
 *::after {
@@ -63,8 +68,8 @@ body {
 
 .board {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(20, 1fr);
+  grid-template-columns: repeat(var(--board-cols), 1fr);
+  grid-template-rows: repeat(var(--board-rows), 1fr);
   width: 300px;
   height: 600px;
   background-color: #0a0a14;
@@ -84,6 +89,7 @@ body {
   box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
 }
 
+/* TETROMINOES.colorClass 와 1:1 대응 (script.js 참고) */
 .piece-i {
   background-color: #00d9ff;
   border-color: #33e5ff;
@@ -163,6 +169,19 @@ body {
 
 .btn:active {
   transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+  opacity: 0.4;
+}
+
+.btn:disabled:active {
+  transform: none;
 }
 
 .btn-primary {
