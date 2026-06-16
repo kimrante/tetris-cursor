@@ -1,5 +1,28 @@
 # Release Notes
 
+## v1.4.0 (2026-06-16)
+
+### 추가
+- 히든 스폰 행 (`SPAWN_Y = -1`) 및 스폰 킥 (`SPAWN_KICKS`)
+- 천장 잠금 감지 (`lockedAboveVisible`) 및 게임 오버 처리
+
+### 변경
+- High 버그 수정: 스폰 즉시 게임 오버 완화, 천장 고정 시 게임 오버
+- 안전 리팩토링: `forEachOccupiedCell`, `findValidKick`, `prepareFreshBoard` 등 함수 분리
+- 버전 1.4.0으로 갱신
+
+## v1.3.0 (2026-06-16)
+
+### 추가
+- 키보드 조작 (`←` `→` `↓` `↑` `Space`)
+- 점수 계산 함수 `calculateLineScore`, `applyLineClearScore`
+- 게임 오버·재시작 통합 함수 `triggerGameOver`, `resetGame`
+
+### 변경
+- 라인 삭제, 점수, 게임 오버, 재시작 로직 정리
+- 재시작 시 보드·점수·타이머·상태 일괄 초기화
+- `setInterval` 중복 실행 방지 (`stopDropLoop` → `startDropLoop`)
+
 ## v1.2.0 (2026-06-16)
 
 ### 추가
