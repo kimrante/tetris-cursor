@@ -1,5 +1,6 @@
 // 테트리스 보드 크기 (표준: 가로 10칸, 세로 20칸)
 // style.css의 --board-cols, --board-rows 와 동기화됩니다.
+const VERSION = "1.2.0";
 const COLS = 10;
 const ROWS = 20;
 const DROP_INTERVAL_MS = 800;
