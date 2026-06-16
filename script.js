@@ -320,6 +320,71 @@ function tryMovePiece(dx, dy) {
 }
 
 /**
+ * 블록을 즉시 바닥까지 내립니다. (hard drop)
+ */
+function tryHardDrop() {
+  if (!currentPiece || gameState !== GAME_STATE.PLAYING) {
+    return false;
+  }
+
+  while (canMove(currentPiece, 0, 1, board)) {
+    currentPiece.y += 1;
+  }
+
+  refreshDisplay();
+  handlePieceLocked();
+  return true;
+}
+
+/**
+ * 키보드 입력을 처리합니다.
+ */
+function handleKeyDown(event) {
+  if (gameState !== GAME_STATE.PLAYING) {
+    return;
+  }
+
+  const gameKeys = ["ArrowLeft", "ArrowRight", "ArrowDown", "ArrowUp", " "];
+  if (!gameKeys.includes(event.key)) {
+    return;
+  }
+
+  event.preventDefault();
+
+  switch (event.key) {
+    case "ArrowLeft":
+      tryMovePiece(-1, 0);
+      break;
+    case "ArrowRight":
+      tryMovePiece(1, 0);
+      break;
+    case "ArrowDown":
+      tryMovePiece(0, 1);
+      break;
+    case "ArrowUp":
+      tryRotatePiece();
+      break;
+    case " ":
+      tryHardDrop();
+      break;
+  }
+}
+
+let keyboardControlsInitialized = false;
+
+/**
+ * 키보드 이벤트를 한 번만 등록합니다.
+ */
+function initKeyboardControls() {
+  if (keyboardControlsInitialized) {
+    return;
+  }
+
+  document.addEventListener("keydown", handleKeyDown);
+  keyboardControlsInitialized = true;
+}
+
+/**
  * 자동 낙하 1틱을 처리합니다.
  */
 function tick() {
@@ -545,18 +610,8 @@ function restartGame() {
 startButton.addEventListener("click", startGame);
 restartButton.addEventListener("click", restartGame);
 
-document.addEventListener("keydown", (event) => {
-  if (gameState !== GAME_STATE.PLAYING) {
-    return;
-  }
-
-  if (event.key === "ArrowUp") {
-    event.preventDefault();
-    tryRotatePiece();
-  }
-});
-
 // 페이지 로드 시 보드 준비
 applyBoardDimensions();
 initBoardCells();
+initKeyboardControls();
 initGame();
